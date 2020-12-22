@@ -1,1 +1,25 @@
 == Comment démarrer ?
+
+Nous allons aborder dans ce chapitre comment démarrer un cluster Elasticsearch. Nous allons tout d'abord démarrer un seul
+noeud, puis un deuxième pour démontrer les possibilité de clustering qu'apporte Elasticsearch. A cette installation, nous
+ajouterons également Kibana, l'interface graphique officielle permettant d'intéragir avec Elasticsearch.
+
+=== Démarrer Elasticsearch
+
+Depuis la page de téléchargement https://www.elastic.co/fr/downloads/, nous allons tout d'abord télécharger la version d'Elasticsearch
+en fonction de la plateforme cible. Une fois téléchargée et dézippée, il nous suffit de lancer la commande suivant :
+
+[source]
+----
+./bin/elasticsearch
+----
+
+=== Démarrer Kibana
+
+Depuis la page de téléchargement https://www.elastic.co/fr/downloads/, nous allons tout d'abord télécharger la version de Kibana
+en fonction de la plateforme cible. Une fois téléchargée et dézippée, il nous suffit de lancer la commande suivant :
+
+[source]
+----
+./bin/kibana
+----
