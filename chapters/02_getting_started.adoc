@@ -14,6 +14,19 @@ en fonction de la plateforme cible. Une fois téléchargée et dézippée, il no
 ./bin/elasticsearch
 ----
 
+Depuis votre navigateur, si vous entrer l'URL `http://localhost:9200`, vous devriez obtenir un document au format JSON
+retourné par Elasticsearch.
+
+=== Configuration
+
+Elasticsearch est configurable via l'dition d'un fichier de configuration `elasticsearch.yml` qui se trouve dans le répertoire
+`config`. Nous pouvons par exemple modifier les propriétés suivantes :
+
+* `http.port`: le port HTTP utilisé pour accéder au noeud. Par défaut: 9200
+
+
+Nous aborderons d'autres paramètrages au fur et à mesure de cet ouvrage.
+
 === Démarrer Kibana
 
 Depuis la page de téléchargement https://www.elastic.co/fr/downloads/, nous allons tout d'abord télécharger la version de Kibana
@@ -23,3 +36,4 @@ en fonction de la plateforme cible. Une fois téléchargée et dézippée, il no
 ----
 ./bin/kibana
 ----
+
