@@ -1,4 +1,4 @@
-= Elasticsearch
+= Suite Elastic
 
 include::./chapters/00_a_propos.adoc[]
 include::./chapters/01_introduction.adoc[]
@@ -13,4 +13,5 @@ include::./chapters/09_snapshot.adoc[]
 include::./chapters/10_monitoring.adoc[]
 include::./chapters/11_index_lifecycle_managment.adoc[]
 include::./chapters/12_security.adoc[]
+include::./chapters/13_kibana.adoc[]
 
