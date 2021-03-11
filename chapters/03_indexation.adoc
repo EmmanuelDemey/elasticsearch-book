@@ -1,1 +1,45 @@
 == Indexer des documents
+
+Avant de pouvoir des recherches dans notre jeu de données, nous devons bien evidemment indexer nos premiers documents.
+Pour cela, Elasticsearch nous propose une API, proche des API REST, nous permettant de créer, lire, modifier ou encore
+supprimer un ou des documents.
+
+Nous allons aborder dans ce chapitre ces APIs, et également celle permettant de faire des indexation en masse de manière
+performante.
+
+=== Structure de l'API
+
+Les documents que nous souhaitons indexer dans Elasticsearch seront placés dans un index. Vous êtes en charge de définir
+le nom de cet index. Une fois ce nom défini, nous allons utiliser dans les différentes requêtes HTTP que nous allons utiliser.
+
+Voici la liste des APIs que nous allons utiliser pour indexer une document dans un index *products* :
+
+* Pour une première indexation :
+
+[source]
+----
+POST /products/_doc
+{ ... }
+----
+
+* Pour une mise à jour totale :
+
+[source]
+----
+PUT /products/_doc/{id}
+{ ... }
+----
+
+* Pour la récupération d'un document déjà indexé
+
+[source]
+----
+GET /products/_doc/{id}
+----
+
+* Pour la suppression d'un document déjà indexé
+
+[source]
+----
+DELETE /products/_doc/{id}
+----
