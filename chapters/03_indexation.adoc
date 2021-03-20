@@ -43,3 +43,32 @@ GET /products/_doc/{id}
 ----
 DELETE /products/_doc/{id}
 ----
+
+=== Bulk API
+
+Lorsque nous souhaitons indexer, mettre à jour ou encore supprimer de multiples documents, nous pourrions bien évidemment faire une requête HTTP par document à traiter. Mais cela ne serait pas optimal. Elasticsearch propose l'API bill permettant de faire, en une seule requête, plusieurs actions dans Elasticsearch
+
+Pour ce faire, nous allons utiliser le endpoints _bulk et un corp de requête au formation ND JSON (New Line délimited JSON). Ce format ressemble à du JSON, mais ne l'est pas vraiment. En effet, chaque ligne est un document JSON valide, mais l'ensemble du corps de n'est pas.
+
+Dans ce corps de requête, une action sera définie sur une ligne (pour les actions de suppression de document par exemple) ou sur deux lignes (pour les actions de mises à jour ou création). Pour ce dernier cas, la premiere correspondra à l'action souhaitée. Et là deuxième ligne, au document a indexer.
+
+ Les différents actions supportées sont :
+
+- index : création ou mise à jour
+- create : creation
+- update : mise à jour
+- delete : suppression.
+
+Dans l'exemple ci-dessois, en une seule requête nous exécutons les 4 actions définies précédemment.
+
+[source]
+----
+POST _bulk
+{ "index" : { "_index" : "test", "_id" : "1" } }
+{ "field1" : "value1" }
+{ "delete" : { "_index" : "test", "_id" : "2" } }
+{ "create" : { "_index" : "test", "_id" : "3" } }
+{ "field1" : "value3" }
+{ "update" : {"_id" : "1", "_index" : "test"} }
+{ "doc" : {"field2" : "value2"} }
+----
