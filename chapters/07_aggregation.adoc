@@ -1,1 +1,52 @@
 == Agrégation
+
+Les agrégations dans Elasticsearch nous donne la possibilité d'exécuter un calcul sur le résultat d'une recherche. Il faut bien garder en tête, que les agrégations que nous allons 
+définir seront exécutés sur lea documents retournés suite à la recherche définie dans la même requête HTTP. 
+
+Nous avons trois familles d'agrégation que nous allons présenter dans ce chapitre. Nous avons : 
+
+* les agrégations de type Metric
+* les agrégations de type Bucket
+* les agrégations de type Pipeline.
+
+Ci-dessous, vous trouverez la syntaxe de base permettant d'exécuter une agrégation. 
+
+[source]
+----
+POST /products/_search
+{
+  "aggs": {
+    "<le nom de votre agrégation>": {
+      "<le type d'agrégation que vous souhaitez utiliser>": {
+        ...
+      }
+    }
+  }
+}
+----
+
+=== Les agrégations de type Metric
+
+=== Les agrégations de type Bucket
+
+=== Les agrégations de type Pipeline
+
+=== Post Filters
+
+Si vous souhaitez filtrer les réponses retournées par votre recherche après exécution des agrégation, vous pouvez exécuter une post_filter. 
+
+[source]
+----
+POST /products/_search
+{
+  "query": {
+    ...
+  },
+  "aggs": {
+    ...
+  },
+  "post_filter": { 
+    "term": { "color": "red" }
+  }
+}
+----
