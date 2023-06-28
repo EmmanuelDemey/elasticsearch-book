@@ -1,1 +1,13 @@
 == Recherche
+
+=== Utilisation des shards 
+
+Si nous avons un index composé de shards primaries et replicas, Elasticsearch va transférer notre requete de recherches à l'un des deux shards
+en fonction de plusieurs critères : 
+
+* Les respect des critères de `awareness`. 
+* En fonction du temps de réponse des précedentes requetes retournées par le shard. 
+* En fonction du nombre d'actions à réaliser par le shard
+
+Si vous ne souhaitez pas ce fonctionnement, nous pouvons le désactiver pour utiliser un algorithme `round robin`. Pour cela, nous 
+devfinir, via la *Cluster Settings API* la propriété `cluster.routing.use_adaptive_replica_selection` à `false`.
