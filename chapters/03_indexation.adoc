@@ -72,3 +72,45 @@ POST _bulk
 { "update" : {"_id" : "1", "_index" : "test"} }
 { "doc" : {"field2" : "value2"} }
 ----
+
+=== Reindex
+
+Nous avons également à notre disposition une API permettant de réindexer l'ensemnle ou une partie d'un index vers un autre. 
+Cette API utilise le endpoint `_reindex`. Cela peut etre utile par exemple lorsque nous souhaitons modifier le mapping
+d'un index et réindexer l'ensemble de la donnée, pour que la nouvelle configuration soit prise en compte. 
+
+Dans l'exemple ci-dessous, nous reindexons l'ensemble de l'index *v1* vers l'index *v2*. 
+
+[source]
+----
+POST _reindex
+{
+  "source": {
+    "index": "v1"
+  },
+  "dest": {
+    "index": "v2"
+  }
+}
+----
+
+Nous pouvons également reindexer une partie d'un index en spécifiant un requete de recherche. 
+
+[source]
+----
+POST _reindex
+{
+  "source": {
+    "index": "v1",
+    "query": {
+      "match": {
+        "company": "cat"
+      }
+    }
+  },
+  "dest": {
+    "index": "v2"
+  }
+}
+----
+
