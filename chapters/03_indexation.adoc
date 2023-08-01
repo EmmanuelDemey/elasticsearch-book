@@ -114,3 +114,7 @@ POST _reindex
 }
 ----
 
+## Injector
+
+Afin d'indexer des données fictives dans un Elasticsearch, vous pouvez utiliser le script https://github.com/EmmanuelDemey/elasticsearch-fake-data qui 
+permet de générer de la donnée à partir du mapping d'un index Elasticsearch.
