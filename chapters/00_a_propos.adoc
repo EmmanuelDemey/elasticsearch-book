@@ -1,4 +1,6 @@
-Elasticsearch est une des nombreuses solutions permettant d'implémenter pour votre application un moteur de recherche. Grâce à ce type de solution, vous allez pouvoir faire de la recherche textuelle, de la recherche entre deux bornes numériques ou encore faire des calculs sur votre jeu de données. 
+Elasticsearch est une des nombreuses solutions permettant d'implémenter pour votre application un moteur de recherche. 
+Grâce à ce type de solution, vous allez pouvoir faire plusieurs choses de la recherche textuelle, de la recherche entre deux bornes numériques 
+ou encore faire des calculs sur votre jeu de données. 
 
 Dans cet ouvrage, que je mettrais à jour continuellement au fur et à mesure de mon apprentissage de la technologie, vous allez apprendre comment utiliser correctement ce solution. Je vais présenter les fonctionnalités, les cas d'utilisation ou encore les bonnes pratiques.
 

@@ -1,6 +1,14 @@
 == Introduction
 
-Elasticsearch est une solution opensource dévelopée par la société Elastic et faisant partie de la suite Elastic (comme Logstash ou encore Kibana).
+Elasticsearch est une solution opensource dévelopée par la société Elastic et faisant partie de la suite Elastic. Dans cette solution 
+plusieurs outils gravitent autour de cette épine dorsole. Nous pouvons par exemple citer : 
+
+* Logstash
+* Beats
+* APM
+* Kibana
+
+Le but de cet ouvrage est d'aborder tous ces outils sans restriction. 
 
 Se basant sur un autre produit opensource Lucene, il nous permet de mettre en place une solution distribué et tolérante à la panne pour proposer
 une fonctionnalité de moteur de recherche. 
@@ -8,3 +16,8 @@ une fonctionnalité de moteur de recherche.
 === Lucène
 
 === Solutions concurrentes
+
+Elasticsearch n'est pas le seul produit proposant ce type de fonctionnalités. Dans cette partie, nous allons
+aborder certaines d'entre elles. 
+
+Nous pouvons tout d'abord citer les solutions Open Source
