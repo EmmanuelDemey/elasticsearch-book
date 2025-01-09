@@ -1,0 +1,130 @@
+== Lucene
+
+Apache Lucene est une bibliothèque logicielle de recherche open-source, développée en Java, qui permet d'ajouter des fonctionnalités de recherche en texte intégral aux applications. Lucene est extrêmement performant et flexible, 
+ce qui en fait la base de nombreux moteurs de recherche, y compris Elasticsearch.
+
+--- Architecture de Lucene
+
+Lucene utilise une architecture basée sur un index inversé, ce qui permet des recherches rapides et efficaces. Voici les principaux composants de Lucene :
+
+1. **Document** : Un document dans Lucene est une unité de recherche. Chaque document est constitué de plusieurs champs (fields).
+2. **Field** : Un champ est une paire clé-valeur dans un document. Il peut contenir différents types de données (texte, numérique, etc.).
+3. **Index** : L'index est une structure de données qui permet de stocker des documents de manière optimisée pour la recherche.
+4. **Analyzer** : Les analyzers sont utilisés pour transformer le texte en une série de termes qui peuvent être indexés. Cela inclut des opérations comme la tokenisation, la suppression des mots vides, et la lemmatisation.
+
+=== Exemple de Code
+
+Voici un exemple détaillé de création d'un index, d'ajout de documents, et de recherche dans Lucene.
+
+Tout d'abord, assurez-vous d'avoir les dépendances Maven nécessaires :
+
+[code]
+----
+<dependency>
+    <groupId>org.apache.lucene</groupId>
+    <artifactId>lucene-core</artifactId>
+    <version>8.10.1</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.lucene</groupId>
+    <artifactId>lucene-analyzers-common</artifactId>
+    <version>8.10.1</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.lucene</groupId>
+    <artifactId>lucene-queryparser</artifactId>
+    <version>8.10.1</version>
+</dependency>
+----
+
+===
+
+[code]
+----
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.RAMDirectory;
+
+public class LuceneExample {
+    public static void main(String[] args) {
+        try {
+            // Analyser standard
+            StandardAnalyzer analyzer = new StandardAnalyzer();
+
+            // Index stocké en mémoire (RAMDirectory)
+            Directory index = new RAMDirectory();
+
+            // Configuration de l'IndexWriter
+            IndexWriterConfig config = new IndexWriterConfig(analyzer);
+            IndexWriter w = new IndexWriter(index, config);
+
+            // Ajouter des documents
+            addDoc(w, "Lucene in Action", "193398817");
+            addDoc(w, "Lucene for Dummies", "55320055Z");
+            addDoc(w, "Managing Gigabytes", "55063554A");
+            addDoc(w, "The Art of Computer Science", "9900333X");
+            w.close();
+
+            // Rechercher des documents
+            String querystr = "lucene";
+
+            // Construire le parser de requête
+            Query q = new QueryParser("title", analyzer).parse(querystr);
+
+            // Recherche
+            int hitsPerPage = 10;
+            DirectoryReader reader = DirectoryReader.open(index);
+            IndexSearcher searcher = new IndexSearcher(reader);
+            TopDocs docs = searcher.search(q, hitsPerPage);
+            ScoreDoc[] hits = docs.scoreDocs;
+
+            // Afficher les résultats
+            System.out.println("Found " + hits.length + " hits.");
+            for (int i = 0; i < hits.length; ++i) {
+                int docId = hits[i].doc;
+                Document d = searcher.doc(docId);
+                System.out.println((i + 1) + ". " + d.get("isbn") + "\\t" + d.get("title"));
+            }
+
+            // Fermer le lecteur
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void addDoc(IndexWriter w, String title, String isbn) throws Exception {
+        Document doc = new Document();
+        doc.add(new TextField("title", title, Field.Store.YES));
+        doc.add(new StringField("isbn", isbn, Field.Store.YES));
+        w.addDocument(doc);
+    }
+}
+---
+
+=== Détails Techniques
+
+1. **StandardAnalyzer** : C'est l'un des analyzers fournis par Lucene. Il divise le texte en tokens en utilisant des règles de tokenisation standard et supprime les mots vides courants.
+2. **RAMDirectory** : Stocke l'index en mémoire pour une utilisation rapide. Pour les grandes applications, il est courant d'utiliser `FSDirectory` pour stocker l'index sur le disque.
+3. **IndexWriter** : Utilisé pour écrire des documents dans l'index. Chaque document est constitué de plusieurs champs (dans cet exemple, "title" et "isbn").
+4. **QueryParser** : Utilisé pour analyser la chaîne de requête en un objet `Query`. Le champ "title" est spécifié pour la recherche.
+5. **IndexSearcher** : Utilisé pour rechercher des documents dans l'index. Les résultats sont renvoyés sous forme de `TopDocs` qui contient les `ScoreDoc` (documents avec leur score de pertinence).
+6. **TopDocs et ScoreDoc** : `TopDocs` contient les résultats de la recherche, et `ScoreDoc` contient le score et l'ID du document correspondant.
+7. **Document** : Représente un document dans Lucene. Chaque document est composé de plusieurs champs.
+
+=== Conclusion
+
+Apache Lucene est une bibliothèque puissante pour la recherche en texte intégral. Elle est hautement configurable et extensible, ce qui permet aux développeurs de l'adapter à leurs besoins spécifiques. En comprenant 
+les concepts clés et en utilisant les composants appropriés, il est possible de construire des moteurs de recherche efficaces et performants. L'exemple de code ci-dessus fournit une base pour démarrer avec Lucene et peut être étendu pour des applications plus complexes.
